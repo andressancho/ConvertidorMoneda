@@ -6,7 +6,7 @@ package convertidor.andressancho.com.convertidormoneda;
 
 public class Convertidor {
 
-    static double  venta= 572.43;
+    static double  venta;
     Convertidor() {
 
     }

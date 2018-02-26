@@ -17,6 +17,8 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         sp=  new SoapCall();
         sp.execute();
-        TextView txt = findViewById(R.id.txtVenta);
-        txt.setText("Venta: "+ Double.toString( Convertidor.venta));
+
+
 
     }
 
@@ -74,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy");
+            Date date= new Date();
             SoapObject request = new SoapObject(NAMESPACE,METHOD_NAME);
             request.addProperty("tcIndicador","318");
-            request.addProperty("tcFechaInicio","24/02/2018");
-            request.addProperty("tcFechaFinal","24/02/2018");
+            request.addProperty("tcFechaInicio",dt1.format(date).toString());
+            request.addProperty("tcFechaFinal",dt1.format(date).toString());
             request.addProperty("tcNombre","A");
             request.addProperty("tnSubNiveles","N");
 
@@ -112,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if(s!=null){
                 Convertidor.venta=Double.parseDouble(s);
+                TextView txt = findViewById(R.id.txtVenta);
+                txt.setText("Venta: "+ Double.toString( Convertidor.venta));
             }
         }
     }
